@@ -1,7 +1,7 @@
 import type { FastifyReply, FastifyRequest } from "fastify"
 
 import { z } from "zod"
-import { createUserFactory } from "../../use-cases/factories/create-user.factory"
+import { makeCreatUser } from "../../use-cases/factories/make-create-users"
 
 export async function createUser(request: FastifyRequest, reply: FastifyReply) {
   const createUserSchema = z.object({
@@ -12,7 +12,7 @@ export async function createUser(request: FastifyRequest, reply: FastifyReply) {
 
   const { name, email, password } = createUserSchema.parse(request.body)
 
-  const createUser = createUserFactory()
+  const createUser = makeCreatUser()
 
   await createUser.execute({ name, email, password })
 
